@@ -32,9 +32,13 @@
 #define HTS221_CTRL1_BDU            0x04U
 #define HTS221_CTRL1_ODR_1HZ        0x01U
 
+#define HTS221_TEMP_OUT_L           0x2AU
+#define HTS221_HUMIDITY_OUT_L       0x28U
+
 void hts221_register_callbacks(void *read_fn, void *write_fn);
 uint8_t hts221_read(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t hts221_write(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t hts221_init(void);
-
+uint8_t get_temperature(float *temperature);
+uint8_t get_humidity(float *humidity);
 #endif

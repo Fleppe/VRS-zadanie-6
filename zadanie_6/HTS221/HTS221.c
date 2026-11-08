@@ -88,3 +88,53 @@ uint8_t hts221_init(void)
 
 	return hts221_read_calibration();
 }
+
+uint8_t get_temperature(float *temperature)
+{
+	uint8_t buf[2];
+	if(!hts221_read(HTS221_TEMP_OUT_L, buf, 2)) return 0;
+	int16_t t_out = (int16_t)((buf[1] << 8) | buf[0]);
+
+	*temperature = t0_degc + (t_out - t0_out) * (t1_degc - t0_degc) / (t1_out - t0_out);
+	return 1;
+}
+
+uint8_t get_humidity(float *humidity)
+{
+	uint8_t buf[2];
+	if(!hts221_read(HTS221_HUMIDITY_OUT_L, buf, 2)) return 0;
+
+	int16_t h_out = (int16_t)(buf[1] << 8 | buf[0]);
+
+	*humidity = h0_rh + (h_out - h0_t0_out) * (h1_rh - h0_rh) / (h1_t0_out - ho_t0_out);
+	return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

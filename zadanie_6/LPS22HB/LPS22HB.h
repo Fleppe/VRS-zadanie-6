@@ -18,9 +18,12 @@
 
 #define LPS22HB_CTRL1_ODR_10HZ      0x20U
 
+#define LPS22HB_PRESS_OUT_XL        0x28U
+#define LPS22HB_PRESSURE_SENSITIVITY 4096.0f
+
 void lps22hb_register_callbacks(void *read_fn, void *write_fn);
 uint8_t lps22hb_read(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t lps22hb_write(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t lps22hb_init(void);
-
+uint8_t get_pressure(*pressure);
 #endif /* LPS22HB_H_ */
