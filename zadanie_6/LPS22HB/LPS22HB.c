@@ -49,12 +49,16 @@ uint8_t lps22hb_init(void)
 	return lps22hb_write(LPS22HB_CTRL_REG1, &config, 1);
 }
 
-uint8_t get_pressure(*pressure)
+uint8_t get_pressure(float *pressure)
 {
 	uint8_t buf[3];
-	if(!lps22hp_read(LPS22HB_PRESS_OUT_XL, buf, 3)) return 0;
+	if(!lps22hb_read(LPS22HB_PRESS_OUT_XL, buf, 3)) return 0;
 
 	uint32_t p_out = (uint32_t)(buf[2] << 16 | buf[1] << 8 | buf[0]);
-	*pressure = p_out / LPS22HP_PRESSURE_SENSITIVITY;
+	*pressure = p_out / LPS22HB_PRESSURE_SENSITIVITY;
 	return 1;
+}
+float calculate_altitude(float pressure, float reference_pressure)
+{
+	return 44330.0f * (1.0f - powf(pressure / reference_pressure, 1.0f / 5.255f));
 }

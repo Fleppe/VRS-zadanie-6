@@ -8,6 +8,7 @@
 #ifndef LPS22HB_H_
 #define LPS22HB_H_
 #include <stdint.h>
+#include <math.h>
 
 #define LPS22HB_I2C_ADDRESS         0xBAU
 
@@ -25,5 +26,6 @@ void lps22hb_register_callbacks(void *read_fn, void *write_fn);
 uint8_t lps22hb_read(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t lps22hb_write(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t lps22hb_init(void);
-uint8_t get_pressure(*pressure);
+uint8_t get_pressure(float *pressure);
+float calculate_altitude(float pressure, float reference_pressure);
 #endif /* LPS22HB_H_ */
