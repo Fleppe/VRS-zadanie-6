@@ -101,6 +101,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   hts221_register_callbacks(i2c_read, i2c_write);
   lps22hb_register_callbacks(i2c_read, i2c_write);
+
+  uint8_t hts_ok = hts221_init();
+  uint8_t lps_ok = lps22hb_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
