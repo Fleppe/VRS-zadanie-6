@@ -24,7 +24,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "HTS221.h"
+#include "LPS22HB.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -98,7 +99,8 @@ int main(void)
   MX_I2C1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  hts221_register_callbacks(i2c_read, i2c_write);
+  lps22hb_register_callbacks(i2c_read, i2c_write);
   /* USER CODE END 2 */
 
   /* Infinite loop */
