@@ -8,6 +8,7 @@
 #ifndef HTS221_H_
 #define HTS221_H_
 #include <stdint.h>
+#include <math.h>
 
 #define HTS221_I2C_ADDRESS          0xBEU
 
@@ -41,4 +42,5 @@ uint8_t hts221_write(uint8_t reg, uint8_t *data, uint8_t len);
 uint8_t hts221_init(void);
 uint8_t get_temperature(float *temperature);
 uint8_t get_humidity(float *humidity);
+float calculate_altitude(float pressure, float reference_pressure);
 #endif

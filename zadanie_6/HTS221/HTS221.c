@@ -109,7 +109,10 @@ uint8_t get_humidity(float *humidity)
 	*humidity = h0_rh + (h_out - h0_t0_out) * (h1_rh - h0_rh) / (h1_t0_out - ho_t0_out);
 	return 1;
 }
-
+float calculate_altitude(float pressure, float reference_pressure)
+{
+	return return 44330.0f * (1.0f - powf(pressure / reference_pressure, 1.0f / 5.255f));
+}
 
 
 
