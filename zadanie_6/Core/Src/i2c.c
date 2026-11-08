@@ -128,7 +128,7 @@ uint8_t i2c_read(uint8_t dev, uint8_t reg, uint8_t *data, uint8_t len)
 uint8_t i2c_write(uint8_t dev, uint8_t reg, uint8_t *data, uint8_t len)
 {
 	// send len + reg
-	LL_I2C_HandleTransfer(I2C1, dev, LL_I2C_ADDRSLAVE_7BIT, len + 1, LL_I2C_MODE_AUTOEND, LL_I2C_GENERATEW_START_WRITE);
+	LL_I2C_HandleTransfer(I2C1, dev, LL_I2C_ADDRSLAVE_7BIT, len + 1, LL_I2C_MODE_AUTOEND, LL_I2C_GENERATE_START_WRITE);
 
 	while(!LL_I2C_IsActiveFlag_TXIS(I2C1))
 	{
