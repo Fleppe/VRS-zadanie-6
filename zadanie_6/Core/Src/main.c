@@ -26,6 +26,7 @@
 /* USER CODE BEGIN Includes */
 #include "HTS221.h"
 #include "LPS22HB.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,6 +105,14 @@ int main(void)
 
   uint8_t hts_ok = hts221_init();
   uint8_t lps_ok = lps22hb_init();
+
+  if(!hts_ok || !lps_ok) Error_Handler();
+
+  float p0, temperature, humidity, pressure, relative_altitude;
+  char tx_buffer[64];
+
+  LL_mDelay(1100);
+  if(!get_pressure(&p0)) Error_Handler();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,6 +122,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if(get_temperature(&temperature) && get_pressure(&pressure) && get_humidity(&humidity))
+	  {
+    	relative_altitude =  calculate_altitude(pressure, p0);
+    	uint8_t length = sprintf(tx_buffer, "%04.1f,%02.0f,%07.2f,%06.2f\r\n", temperature, humidity, pressure, relative_altitude);
+	    USART2_transferData((uint8_t *)tx_buffer, length);
+	  }
+    LL_mDelay(1000);
   }
   /* USER CODE END 3 */
 }
